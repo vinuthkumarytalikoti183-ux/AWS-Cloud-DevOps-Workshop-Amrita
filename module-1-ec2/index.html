@@ -1,44 +1,616 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Resume</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vinuthkumar | Developer Portfolio</title>
+
+<style>
+:root {
+    --bg: #080b14;
+    --card: #111827;
+    --text: #f4f7ff;
+    --muted: #a3aec2;
+    --accent: #00e5ff;
+    --purple: #a855f7;
+    --border: rgba(255,255,255,0.1);
+}
+
+body.light {
+    --bg: #f4f7fb;
+    --card: #ffffff;
+    --text: #182033;
+    --muted: #596579;
+    --border: rgba(0,0,0,0.12);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: 0.3s;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 8%;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+button, .btn {
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    padding: 11px 18px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.theme-btn {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.hero {
+    min-height: 85vh;
+    padding: 90px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.hero-content {
+    flex: 1 1 350px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 7px 14px;
+    border: 1px solid var(--accent);
+    border-radius: 30px;
+    color: var(--accent);
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 6vw, 66px);
+    line-height: 1.15;
+    margin-bottom: 20px;
+}
+
+.gradient {
+    background: linear-gradient(90deg, var(--accent), var(--purple));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.hero p, .muted {
+    color: var(--muted);
+}
+
+.hero p {
+    max-width: 550px;
+    margin-bottom: 24px;
+}
+
+.btn {
+    display: inline-block;
+    margin: 5px 8px 5px 0;
+    background: linear-gradient(90deg, var(--accent), #6d8cff);
+    color: #07111d;
+}
+
+.btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px #00e5ff40;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--accent);
+}
+
+.profile {
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    font-size: 72px;
+    font-weight: bold;
+    background: var(--card);
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 35px #00e5ff30;
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    50% { transform: translateY(-12px); }
+}
+
+section {
+    padding: 65px 8%;
+    scroll-margin-top: 65px;
+}
+
+.section-title {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    color: var(--muted);
+    margin-bottom: 30px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    padding: 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px #00000020;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: var(--muted);
+}
+
+.icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.skill {
+    margin-bottom: 20px;
+}
+
+.skill-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+}
+
+.track {
+    height: 9px;
+    border-radius: 20px;
+    background: var(--border);
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    width: 0;
+    border-radius: 20px;
+    background: linear-gradient(90deg, var(--accent), var(--purple));
+    transition: width 1.2s ease;
+}
+
+.chip {
+    display: inline-block;
+    padding: 5px 11px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    margin: 5px 3px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.contact-box {
+    max-width: 650px;
+    margin: auto;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.7s;
+}
+
+.reveal.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.menu-btn {
+    display: none;
+    background: var(--card);
+    color: var(--text);
+}
+
+@media (max-width: 700px) {
+    nav {
+        padding: 14px 5%;
+    }
+
+    .menu-btn {
+        display: inline-block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 62px;
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        padding: 20px;
+        flex-direction: column;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .hero {
+        padding: 65px 6%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .profile {
+        width: 190px;
+        height: 190px;
+        font-size: 55px;
+    }
+
+    section {
+        padding: 50px 6%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+}
+</style>
 </head>
+
 <body>
-	<div class="container">
-		<header>
-			<h1>VINUTHKUMAR Y TALIKOTI</h1>
-			<p>Frontend Developer</p>
-		</header>
-		<section>
-			<h2>Summary</h2>
-			<p>student in the amrita</p>
-		</section>
-		<section>
-			<h2>Skills</h2>
-			<ul>
-				<li>c++</li>
-				<li>Html</li>
-				<li>java</lint>
-				<li>Python</li>
-							</ul>
-		</section>
-		<section>
-			<h2>Experience</h2>
-			<h3>Front end develpoer</h3>
-			<p>Developed and maintained multiple company websites using HTML, CSS, and JavaScript.</p>
-			<h3>Web Developer</h3>
-			<p>Designed and implemented custom WordPress themes and plugins. Worked closely with clients to gather requirements and provide technical support. Conducted regular testing and debugging to ensure optimal performance.</p>
-		</section>
-		<section>
-			<h2>Education</h2>
-			<h3>Bachelor of Science in Computer Science</h3>
-			<p>Amrita University mysore</p>
-		</section>
-		<section id="projects">
-			<h2>Projects</h2>
-			<p>Some text about your projects...</p>
-		</section>
-	</div>
+
+<nav>
+    <a class="logo" href="#home">VK.dev</a>
+
+    <div class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <button class="theme-btn" id="themeBtn"
+                aria-label="Toggle light and dark theme">☀️</button>
+    </div>
+
+    <button class="menu-btn" id="menuBtn"
+            aria-label="Toggle navigation">☰</button>
+</nav>
+
+<header class="hero" id="home">
+    <div class="hero-content">
+        <span class="tag">👋 Welcome to my digital space</span>
+
+        <h1>Hi, I'm <span class="gradient">Vinuthkumar</span></h1>
+
+        <h2>I'm a <span class="gradient" id="typing"></span><span>|</span></h2>
+
+        <p>
+            A BCA student who loves technology, coding and creating
+            useful digital experiences. I'm learning every day and
+            turning ideas into projects.
+        </p>
+
+        <a href="#projects" class="btn">Explore My Work ↗</a>
+        <a href="#contact" class="btn btn-outline">Let's Connect</a>
+    </div>
+
+    <div class="profile" aria-label="VK initials">VK</div>
+</header>
+
+<section id="about" class="reveal">
+    <h2 class="section-title">About <span class="gradient">Me</span></h2>
+    <p class="section-subtitle">A little introduction about who I am.</p>
+
+    <div class="card">
+        <p>
+            I'm pursuing a Bachelor of Computer Applications (BCA)
+            at Amrita Vishwa Vidyapeetham, Mysuru Campus.
+            I'm interested in software development, frontend
+            technologies and artificial intelligence.
+            I enjoy playing games, listening to music and exploring
+            new technologies.
+        </p>
+        <br>
+        <span class="chip">🎓 BCA Student</span>
+        <span class="chip">💻 Aspiring Developer</span>
+        <span class="chip">🚀 Always Learning</span>
+    </div>
+</section>
+
+<section id="skills" class="reveal">
+    <h2 class="section-title">My <span class="gradient">Skills</span></h2>
+    <p class="section-subtitle">
+        Technologies I'm learning and practising.
+    </p>
+
+    <div class="grid">
+        <div class="card">
+            <div class="icon">🌐</div>
+            <h3>Web Development</h3>
+            <p>HTML, CSS and JavaScript</p>
+        </div>
+        <div class="card">
+            <div class="icon">🐍</div>
+            <h3>Programming</h3>
+            <p>Python, Java and C++</p>
+        </div>
+        <div class="card">
+            <div class="icon">🧠</div>
+            <h3>Exploring AI</h3>
+            <p>Machine learning and face recognition</p>
+        </div>
+    </div>
+
+    <h3 style="margin: 35px 0 20px;">Learning Progress</h3>
+
+    <p class="muted" style="margin-bottom: 20px;">
+        The percentages below are examples. Change them to reflect
+        your actual skill levels.
+    </p>
+
+    <div id="skillBars">
+        <div class="skill">
+            <div class="skill-label"><span>HTML</span><span>80%</span></div>
+            <div class="track"><div class="fill" data-level="80"></div></div>
+        </div>
+
+        <div class="skill">
+            <div class="skill-label"><span>CSS</span><span>65%</span></div>
+            <div class="track"><div class="fill" data-level="65"></div></div>
+        </div>
+
+        <div class="skill">
+            <div class="skill-label"><span>Python</span><span>60%</span></div>
+            <div class="track"><div class="fill" data-level="60"></div></div>
+        </div>
+
+        <div class="skill">
+            <div class="skill-label"><span>Java</span><span>55%</span></div>
+            <div class="track"><div class="fill" data-level="55"></div></div>
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="reveal">
+    <h2 class="section-title">Featured <span class="gradient">Projects</span></h2>
+    <p class="section-subtitle">Ideas I'm building and exploring.</p>
+
+    <div class="grid">
+        <article class="card">
+            <div class="icon">👤</div>
+            <h3>Face Recognition</h3>
+            <p>
+                A student project exploring face detection and
+                recognition using Python and computer vision.
+            </p>
+            <span class="chip">Python</span>
+            <span class="chip">AI</span>
+            <span class="chip">OpenCV</span>
+        </article>
+
+        <article class="card">
+            <div class="icon">🎮</div>
+            <h3>Gaming Website</h3>
+            <p>
+                A concept website to showcase game information,
+                features and gaming news.
+            </p>
+            <span class="chip">HTML</span>
+            <span class="chip">CSS</span>
+            <span class="chip">JavaScript</span>
+        </article>
+
+        <article class="card">
+            <div class="icon">💼</div>
+            <h3>Personal Portfolio</h3>
+            <p>
+                An interactive website to present my skills,
+                learning journey and projects.
+            </p>
+            <span class="chip">Web Design</span>
+            <span class="chip">Responsive</span>
+        </article>
+    </div>
+
+    <p class="muted" style="margin-top: 18px;">
+        These are portfolio examples. Update them to show your
+        actual projects and link to your source code when available.
+    </p>
+</section>
+
+<section id="contact" class="reveal">
+    <div class="contact-box">
+        <h2 class="section-title">Let's <span class="gradient">Connect</span></h2>
+        <p class="section-subtitle">
+            Have an idea or a project? I'd be happy to connect.
+        </p>
+
+        <a class="btn" href="mailto:your-email@example.com">
+            ✉ Email Me
+        </a>
+        <button class="btn btn-outline" id="topBtn">
+            ↑ Back to Top
+        </button>
+    </div>
+</section>
+
+<footer>
+    <p>Designed with 💙 by Vinuthkumar Y Talikoti</p>
+    <p>© <span id="year"></span> • Learn. Build. Improve.</p>
+</footer>
+
+<script>
+const typing = document.getElementById("typing");
+const words = ["BCA Student", "Frontend Developer", "Tech Enthusiast"];
+let wordIndex = 0;
+let charIndex = 0;
+let deleting = false;
+
+function typeEffect() {
+    const word = words[wordIndex];
+
+    typing.textContent = word.substring(0, charIndex);
+
+    if (!deleting && charIndex < word.length) {
+        charIndex++;
+        setTimeout(typeEffect, 100);
+    } else if (!deleting) {
+        deleting = true;
+        setTimeout(typeEffect, 1200);
+    } else if (charIndex > 0) {
+        charIndex--;
+        setTimeout(typeEffect, 45);
+    } else {
+        deleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        setTimeout(typeEffect, 300);
+    }
+}
+
+typeEffect();
+
+const themeBtn = document.getElementById("themeBtn");
+
+themeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("light");
+
+    const lightMode = document.body.classList.contains("light");
+    themeBtn.textContent = lightMode ? "🌙" : "☀️";
+    themeBtn.setAttribute(
+        "aria-label",
+        lightMode ? "Switch to dark theme" : "Switch to light theme"
+    );
+});
+
+
+const navLinks = document.getElementById("navLinks");
+
+document.getElementById("menuBtn").addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+});
+
+navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+    });
+});
+
+
+const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.12 });
+
+document.querySelectorAll(".reveal").forEach(section => {
+    revealObserver.observe(section);
+});
+
+const skillObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.querySelectorAll(".fill").forEach(bar => {
+                bar.style.width = bar.dataset.level + "%";
+            });
+            skillObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.2 });
+
+skillObserver.observe(document.getElementById("skillBars"));
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+document.getElementById("topBtn").addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+});
+</script>
+
 </body>
 </html>
